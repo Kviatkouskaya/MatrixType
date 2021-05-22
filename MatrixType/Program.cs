@@ -95,7 +95,7 @@ namespace MatrixType
         {
             if (a.Length != b.Length)
             {
-                throw new ArithmeticException("Matrix have different length! " +
+                throw new ArithmeticException("Matrices have different length! " +
                                               "Operation doesn't available...");
             }
         }
@@ -114,13 +114,13 @@ namespace MatrixType
         {
             Console.WriteLine("Enter matrix:");
             string[] line = Console.ReadLine().Split(' ');
-            int[] matrix = Array.ConvertAll(line,Convert.ToInt32);
+            int[] matrix = Array.ConvertAll(line, Convert.ToInt32);
             return matrix;
         }
-       /* public static int[,] InputMatrix()
-        {
+        /* public static int[,] InputMatrix()
+         {
 
-        }*/
+         }*/
         public static void PrintMatrix(int[] matrix)
         {
             Console.WriteLine($"\nMatrix is:");
@@ -131,7 +131,7 @@ namespace MatrixType
             }
             Console.Write("}\n");
         }
-        public static void PrintMatrix(int[,]matrix,string name)
+        public static void PrintMatrix(int[,] matrix, string name)
         {
             Console.WriteLine($"Matrix {name} is:\n");
             for (int i = 0; i < matrix.GetLength(0); i++)
