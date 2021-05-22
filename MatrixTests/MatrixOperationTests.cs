@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using System.Linq;
 namespace MatrixTests
 {
     [TestClass]
@@ -15,6 +15,7 @@ namespace MatrixTests
             int[] arrayB = { b, b1 };
             int[] actual = MatrixType.Matrix.SummarizeMatrix(arrayA, arrayB);
             int[] expected = { c, c1 };
+
             bool result = true;
             for (int i = 0; i < expected.Length; i++)
             {
@@ -167,11 +168,31 @@ namespace MatrixTests
 
         }
 
-        [DataRow()]
+        [DataRow(-1, 3, 0, 1, 2, -2, 0, 2, 0, -1, 1, -3, 4, 0, 3, -11, 12, 1, 1, -3, 4, 0, -2, 10, -8, -2)]
+        [DataRow(1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 7, 8, 11, 14, 17, 20, 23, 30, 37, 44, 35, 46, 57, 68)]
+        [DataRow(0, -1, -2, -3, 0, -1, 2, 1, 2, 1, 1, 2, 1, 2, -1, -2, -1, -2, -7, -8, -7, -8, -1, -2, -1, -2)]
         [DataTestMethod]
-        public void MultiplyMultidimentionalMatrixTest()
+        public void MultiplyMultidimentionalMatrixTest(int a, int a1, int a2, int a3, int a4, int a5,
+                                                       int b, int b1, int b2, int b3, int b4, int b5, int b6, int b7,
+                                                       int c, int c1, int c2, int c3, int c4, int c5, int c6, int c7,
+                                                       int c8, int c9, int c10, int c11)
         {
-
+            int[,] arrayA = { { a, a1 }, { a2, a3 }, { a4, a5 } };
+            int[,] arrayB = { { b, b1, b2, b3 }, { b4, b5, b6, b7 } };
+            int[,] actual = MatrixType.Matrix.MultiplyMatrix(arrayA, arrayB);
+            int[,] expected = { { c, c1, c2, c3 }, { c4, c5, c6, c7 }, { c8, c9, c10, c11 } };
+            bool result = true;
+            for (int i = 0; i < expected.GetLength(0); i++)
+            {
+                for (int j = 0; j < expected.GetLength(1); j++)
+                {
+                    if (actual[i, j] != expected[i, j])
+                    {
+                        result = false;
+                    }
+                }
+            }
+            Assert.IsTrue(result);
         }
     }
 }
