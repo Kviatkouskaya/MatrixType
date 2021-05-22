@@ -38,7 +38,7 @@ namespace MatrixType
         }
         public static int[,] MultiplyMatrixToNumber(int[,] a, int number)
         {
-            int[,] result = new int[a.GetLength(0),a.GetLength(1)];
+            int[,] result = new int[a.GetLength(0), a.GetLength(1)];
             for (int i = 0; i < result.GetLength(0); i++)
             {
                 for (int j = 0; j < result.GetLength(1); j++)
@@ -48,7 +48,7 @@ namespace MatrixType
             }
             return result;
         }
-        public static int[] SubtractMatrix(int []a,int[] b)
+        public static int[] SubtractMatrix(int[] a, int[] b)
         {
             CheckMatrixEqual(a, b);
             int[] result = new int[a.Length];
@@ -71,7 +71,7 @@ namespace MatrixType
             }
             return result;
         }
-        public static int[,]MultiplyMatrix(int [,]a,int[,] b)
+        public static int[,] MultiplyMatrix(int[,] a, int[,] b)
         {
             if (a.GetLength(1) != b.GetLength(0))
             {
@@ -91,11 +91,11 @@ namespace MatrixType
             }
             return result;
         }
-        public static void CheckMatrixEqual(int[]a,int[]b)
+        public static void CheckMatrixEqual(int[] a, int[] b)
         {
             if (a.Length != b.Length)
             {
-                throw new ArithmeticException("Matrixes have different length! " +
+                throw new ArithmeticException("Matrix have different length! " +
                                               "Operation doesn't available...");
             }
         }
@@ -103,16 +103,51 @@ namespace MatrixType
         {
             if (a.GetLength(0) != b.GetLength(0) || a.GetLength(1) != b.GetLength(1))
             {
-                throw new ArithmeticException("Matrixes have different size! " +
+                throw new ArithmeticException("Matrices have different size! " +
                                               "Operation doesn't available...");
             }
         }
     }
     class Program
     {
-        static void Main()
+        public static int[] InputMatrix()
+        {
+            Console.WriteLine("Enter matrix:");
+            string[] line = Console.ReadLine().Split(' ');
+            int[] matrix = Array.ConvertAll(line,Convert.ToInt32);
+            return matrix;
+        }
+       /* public static int[,] InputMatrix()
         {
 
+        }*/
+        public static void PrintMatrix(int[] matrix)
+        {
+            Console.WriteLine($"\nMatrix is:");
+            Console.Write("{ ");
+            foreach (var item in matrix)
+            {
+                Console.Write(item + " ");
+            }
+            Console.Write("}\n");
+        }
+        public static void PrintMatrix(int[,]matrix,string name)
+        {
+            Console.WriteLine($"Matrix {name} is:\n");
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                Console.Write("{ ");
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    Console.Write(matrix[i, j] + " ");
+                }
+                Console.Write("}\n");
+            }
+        }
+        static void Main()
+        {
+            int[] matrixA = InputMatrix();
+            PrintMatrix(matrixA);
         }
     }
 }
