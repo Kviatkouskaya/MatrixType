@@ -4,104 +4,129 @@ namespace MatrixType
 {
     public class Matrix
     {
-        public static int[] SummarizeMatrix(int[] a, int[] b)
+        public int[] oneDimension;
+        public int[,] twoDimension;
+        public int matrixDimensions;
+        public Matrix(int[] a)
         {
-            CheckMatrixEqual(a, b);
-            int[] result = new int[a.Length];
-            for (int i = 0; i < a.Length; i++)
-            {
-                result[i] = a[i] + b[i];
-            }
-            return result;
+            oneDimension = a;
+            matrixDimensions = a.Rank;
         }
-        public static int[,] SummarizeMatrix(int[,] a, int[,] b)
+        public Matrix(int[,] a)
+        {
+            twoDimension = a;
+            matrixDimensions = a.Rank;
+        }
+        public static Matrix operator +(Matrix a, Matrix b)
         {
             CheckMatrixEqual(a, b);
-            int[,] result = new int[a.GetLength(0), a.GetLength(1)];
-            for (int i = 0; i < result.GetLength(0); i++)
+            if (a.matrixDimensions == 1)
             {
-                for (int j = 0; j < result.GetLength(1); j++)
+                int[] result = new int[a.oneDimension.Length];
+                for (int i = 0; i < a.oneDimension.Length; i++)
                 {
-                    result[i, j] = a[i, j] + b[i, j];
+                    result[i] = a.oneDimension[i] + b.oneDimension[i];
                 }
+                return new Matrix(result);
             }
-            return result;
-        }
-        public static int[] MultiplyMatrixToNumber(int[] a, int number)
-        {
-            int[] result = new int[a.Length];
-            for (int i = 0; i < result.Length; i++)
+            else
             {
-                result[i] = a[i] * number;
-            }
-            return result;
-        }
-        public static int[,] MultiplyMatrixToNumber(int[,] a, int number)
-        {
-            int[,] result = new int[a.GetLength(0), a.GetLength(1)];
-            for (int i = 0; i < result.GetLength(0); i++)
-            {
-                for (int j = 0; j < result.GetLength(1); j++)
+                int[,] result = new int[a.twoDimension.GetLength(0), a.twoDimension.GetLength(1)];
+                for (int i = 0; i < result.GetLength(0); i++)
                 {
-                    result[i, j] = a[i, j] * number;
-                }
-            }
-            return result;
-        }
-        public static int[] SubtractMatrix(int[] a, int[] b)
-        {
-            CheckMatrixEqual(a, b);
-            int[] result = new int[a.Length];
-            for (int i = 0; i < a.Length; i++)
-            {
-                result[i] = a[i] - b[i];
-            }
-            return result;
-        }
-        public static int[,] SubtractMatrix(int[,] a, int[,] b)
-        {
-            CheckMatrixEqual(a, b);
-            int[,] result = new int[a.GetLength(0), a.GetLength(1)];
-            for (int i = 0; i < result.GetLength(0); i++)
-            {
-                for (int j = 0; j < result.GetLength(1); j++)
-                {
-                    result[i, j] = a[i, j] - b[i, j];
-                }
-            }
-            return result;
-        }
-        public static int[,] MultiplyMatrix(int[,] a, int[,] b)
-        {
-            if (a.GetLength(1) != b.GetLength(0))
-            {
-                throw new ArithmeticException("Columns number of matrix A and rows number of matrix B ARE NOT equal!" +
-                                              "Operation doesn't available...");
-            }
-            int[,] result = new int[a.GetLength(0), b.GetLength(1)];
-            for (int i = 0; i < a.GetLength(0); i++)
-            {
-                for (int j = 0; j < b.GetLength(1); j++)
-                {
-                    for (var k = 0; k < a.GetLength(1); k++)
+                    for (int j = 0; j < result.GetLength(1); j++)
                     {
-                        result[i, j] += a[i, k] * b[k, j];
+                        result[i, j] = a.twoDimension[i, j] + b.twoDimension[i, j];
                     }
                 }
+                return new Matrix(result);
             }
-            return result;
         }
-        public static void CheckMatrixEqual(int[] a, int[] b)
+        public static Matrix operator -(Matrix a, Matrix b)
         {
-            if (a.Length != b.Length)
+            CheckMatrixEqual(a, b);
+            if (a.matrixDimensions == 1)
+            {
+                int[] result = new int[a.oneDimension.Length];
+                for (int i = 0; i < a.oneDimension.Length; i++)
+                {
+                    result[i] = a.oneDimension[i] - b.oneDimension[i];
+                }
+                return new Matrix(result);
+            }
+            else
+            {
+                int[,] result = new int[a.twoDimension.GetLength(0), a.twoDimension.GetLength(1)];
+                for (int i = 0; i < result.GetLength(0); i++)
+                {
+                    for (int j = 0; j < result.GetLength(1); j++)
+                    {
+                        result[i, j] = a.twoDimension[i, j] - b.twoDimension[i, j];
+                    }
+                }
+                return new Matrix(result);
+            }
+        }
+        public static Matrix operator *(Matrix a, Matrix b)
+        {
+            if (a.oneDimension != null && a.oneDimension.Length == 1 && b.matrixDimensions == 1)
+            {
+                return b * a.oneDimension[0];
+            }
+            else
+            {
+                if (a.twoDimension.GetLength(1) != b.twoDimension.GetLength(0))
+                {
+                    throw new ArithmeticException("Columns number of matrix A and rows number of matrix B ARE NOT equal!" +
+                                                  "Operation doesn't available...");
+                }
+                int[,] result = new int[a.twoDimension.GetLength(0), b.twoDimension.GetLength(1)];
+                for (int i = 0; i < a.twoDimension.GetLength(0); i++)
+                {
+                    for (int j = 0; j < b.twoDimension.GetLength(1); j++)
+                    {
+                        for (var k = 0; k < a.twoDimension.GetLength(1); k++)
+                        {
+                            result[i, j] += a.twoDimension[i, k] * b.twoDimension[k, j];
+                        }
+                    }
+                }
+                return new Matrix(result);
+            }
+        }
+        public static Matrix operator *(Matrix a, int number)
+        {
+            if (a.matrixDimensions == 1)
+            {
+                int[] result = new int[a.oneDimension.Length];
+                for (int i = 0; i < result.Length; i++)
+                {
+                    result[i] = a.oneDimension[i] * number;
+                }
+                return new Matrix(result);
+            }
+            else
+            {
+                int[,] result = new int[a.twoDimension.GetLength(0), a.twoDimension.GetLength(1)];
+                for (int i = 0; i < result.GetLength(0); i++)
+                {
+                    for (int j = 0; j < result.GetLength(1); j++)
+                    {
+                        result[i, j] = a.twoDimension[i, j] * number;
+                    }
+                }
+                return new Matrix(result);
+            }
+        }
+        public static void CheckMatrixEqual(Matrix a, Matrix b)
+        {
+            if (a.matrixDimensions == 1 && a.oneDimension.Length != b.oneDimension.Length)
             {
                 throw new ArithmeticException("Matrices have different length! " +
                                               "Operation doesn't available...");
             }
-        }
-        public static void CheckMatrixEqual(int[,] a, int[,] b)
-        {
-            if (a.GetLength(0) != b.GetLength(0) || a.GetLength(1) != b.GetLength(1))
+            if (a.matrixDimensions == 2 && (a.twoDimension.GetLength(0) != b.twoDimension.GetLength(0) ||
+                                             a.twoDimension.GetLength(1) != b.twoDimension.GetLength(1)))
             {
                 throw new ArithmeticException("Matrices have different size! " +
                                               "Operation doesn't available...");
@@ -144,6 +169,7 @@ namespace MatrixType
                 Console.Write("}\n");
             }
         }
+
         static void Main()
         {
             int[] matrixA = InputMatrix();
