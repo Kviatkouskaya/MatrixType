@@ -87,8 +87,19 @@ namespace MatrixType
             string line = Console.ReadLine();
             while (line != string.Empty)
             {
+                foreach (var item in line)
+                {
+                    if (item != ' ' && !char.IsNumber(item))
+                    {
+                        throw new ArgumentException($"Error! Invalid symbol: {item} ");
+                    }
+                }
                 arrayList.Add(line.Split(' '));
                 line = Console.ReadLine();
+            }
+            if (arrayList.Count == 0)
+            {
+                throw new NullReferenceException("Error! Matrix object hasn't any number!");
             }
             int[,] result = new int[arrayList.Count, arrayList[0].Length];
             for (int i = 0; i < result.GetLength(0); i++)
