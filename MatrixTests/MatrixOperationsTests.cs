@@ -19,11 +19,11 @@ namespace MatrixTests
             Matrix actual = new Matrix(arrayA) + new Matrix(arrayB);
             Matrix expected = new(arrayC);
             bool result = true;
-            for (int i = 0; i < expected.matrixArray.GetLength(0); i++)
+            for (int i = 0; i < expected.MatrixArray.GetLength(0); i++)
             {
-                for (int j = 0; j < expected.matrixArray.GetLength(1); j++)
+                for (int j = 0; j < expected.MatrixArray.GetLength(1); j++)
                 {
-                    if (actual.matrixArray[i, j] != expected.matrixArray[i, j])
+                    if (actual.MatrixArray[i, j] != expected.MatrixArray[i, j])
                     {
                         result = false;
                     }
@@ -44,11 +44,11 @@ namespace MatrixTests
             Matrix actual = new Matrix(arrayA) + new Matrix(arrayB);
             Matrix expected = new(arrayC);
             bool result = true;
-            for (int i = 0; i < expected.matrixArray.GetLength(0); i++)
+            for (int i = 0; i < expected.MatrixArray.GetLength(0); i++)
             {
-                for (int j = 0; j < expected.matrixArray.GetLength(1); j++)
+                for (int j = 0; j < expected.MatrixArray.GetLength(1); j++)
                 {
-                    if (actual.matrixArray[i, j] != expected.matrixArray[i, j])
+                    if (actual.MatrixArray[i, j] != expected.MatrixArray[i, j])
                     {
                         result = false;
                     }
@@ -69,11 +69,11 @@ namespace MatrixTests
             Matrix actual = new Matrix(arrayA) * number;
             Matrix expected = new(arrayB);
             bool result = true;
-            for (int i = 0; i < actual.matrixArray.GetLength(0); i++)
+            for (int i = 0; i < actual.MatrixArray.GetLength(0); i++)
             {
-                for (int j = 0; j < actual.matrixArray.GetLength(1); j++)
+                for (int j = 0; j < actual.MatrixArray.GetLength(1); j++)
                 {
-                    if (actual.matrixArray[i, j] != expected.matrixArray[i, j])
+                    if (actual.MatrixArray[i, j] != expected.MatrixArray[i, j])
                     {
                         result = false;
                     }
@@ -94,11 +94,11 @@ namespace MatrixTests
             Matrix actual = new Matrix(arrayA) - new Matrix(arrayB);
             Matrix expected = new(arrayC);
             bool result = true;
-            for (int i = 0; i < expected.matrixArray.GetLength(0); i++)
+            for (int i = 0; i < expected.MatrixArray.GetLength(0); i++)
             {
-                for (int j = 0; j < expected.matrixArray.GetLength(1); j++)
+                for (int j = 0; j < expected.MatrixArray.GetLength(1); j++)
                 {
-                    if (actual.matrixArray[i, j] != expected.matrixArray[i, j])
+                    if (actual.MatrixArray[i, j] != expected.MatrixArray[i, j])
                     {
                         result = false;
                     }
@@ -122,11 +122,11 @@ namespace MatrixTests
             Matrix actual = new Matrix(arrayA) * new Matrix(arrayB);
             Matrix expected = new(arrayC);
             bool result = true;
-            for (int i = 0; i < expected.matrixArray.GetLength(0); i++)
+            for (int i = 0; i < expected.MatrixArray.GetLength(0); i++)
             {
-                for (int j = 0; j < expected.matrixArray.GetLength(1); j++)
+                for (int j = 0; j < expected.MatrixArray.GetLength(1); j++)
                 {
-                    if (actual.matrixArray[i, j] != expected.matrixArray[i, j])
+                    if (actual.MatrixArray[i, j] != expected.MatrixArray[i, j])
                     {
                         result = false;
                     }
